@@ -1,6 +1,6 @@
 name: flutter_statix
 description: A simple CLI tool that automatically runs flutter test — ideal for use in CI/CD pipelines or as a pre-launch step.
-version: 1.0.8
+version: 1.1.1
 homepage: https://github.com/adinath-nikam/flutter_statix
 repository: https://github.com/adinath-nikam/flutter_statix
 

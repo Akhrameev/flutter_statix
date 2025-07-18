@@ -1,3 +1,3 @@
-## 1.0.7
+## 1.1.1
 
-- Refactored Code
+- Refactored Code, Increased Accuracy.

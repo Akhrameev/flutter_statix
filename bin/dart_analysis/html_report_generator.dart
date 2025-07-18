@@ -51,12 +51,9 @@ class HtmlReportGenerator {
 
 Map<String, int> _calculateStatistics(List<dynamic> issues) {
   final stats = <String, int>{
-    'CRITICAL': 0,
     'MAJOR': 0,
     'MINOR': 0,
     'INFO': 0,
-    'WARNING': 0,
-    'ERROR': 0,
     'total': issues.length,
   };
 
@@ -187,12 +184,9 @@ String _generateHtmlHead() {
     }
     
     .card.total .number { color: #3498db; }
-    .card.critical .number { color: #e74c3c; }
-    .card.major .number { color: #f39c12; }
+    .card.major .number { color: #f34a12; }
     .card.minor .number { color: #f1c40f; }
     .card.info .number { color: #3498db; }
-    .card.warning .number { color: #e67e22; }
-    .card.error .number { color: #e74c3c; }
     
     .table-container {
       padding: 30px;
@@ -259,12 +253,9 @@ String _generateHtmlHead() {
       display: inline-block;
     }
     
-    .severity-CRITICAL { background: #e74c3c; color: white; }
-    .severity-MAJOR { background: #f39c12; color: white; }
+    .severity-MAJOR { background: #f34a12; color: white; }
     .severity-MINOR { background: #f1c40f; color: #333; }
     .severity-INFO { background: #3498db; color: white; }
-    .severity-WARNING { background: #e67e22; color: white; }
-    .severity-ERROR { background: #e74c3c; color: white; }
     
     .file-path {
       font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
@@ -335,7 +326,6 @@ String _generateHtmlHead() {
 
 String _generateHeader(Map<String, int> stats, Map<String, dynamic> metadata) {
   final timestamp = metadata['timestamp'] ?? DateTime.now().toIso8601String();
-  final dartVersion = metadata['dartVersion'] ?? 'Unknown';
 
   return '''
 <div class="header">
@@ -353,29 +343,17 @@ String _generateSummaryCards(Map<String, int> stats) {
     <div class="number">${stats['total']}</div>
     <div class="label">Total Issues</div>
   </div>
-  <div class="card critical">
-    <div class="number">${stats['CRITICAL'] ?? 0}</div>
-    <div class="label">Critical</div>
-  </div>
-  <div class="card error">
-    <div class="number">${stats['ERROR'] ?? 0}</div>
-    <div class="label">Errors</div>
-  </div>
-  <div class="card warning">
-    <div class="number">${stats['WARNING'] ?? 0}</div>
-    <div class="label">Warnings</div>
-  </div>
   <div class="card major">
     <div class="number">${stats['MAJOR'] ?? 0}</div>
-    <div class="label">Major</div>
+    <div class="label">Major (Error)</div>
   </div>
   <div class="card minor">
     <div class="number">${stats['MINOR'] ?? 0}</div>
-    <div class="label">Minor</div>
+    <div class="label">Minor (Warning)</div>
   </div>
   <div class="card info">
     <div class="number">${stats['INFO'] ?? 0}</div>
-    <div class="label">Info</div>
+    <div class="label">Info (Informational)</div>
   </div>
 </div>''';
 }
@@ -387,9 +365,6 @@ String _generateIssuesTable(List<dynamic> issues) {
   buffer.writeln('<div class="filter-controls">');
   buffer.writeln('<input type="text" class="search-box" placeholder="🔍 Search issues..." id="searchBox">');
   buffer.writeln('<button class="filter-btn active" data-filter="all">All</button>');
-  buffer.writeln('<button class="filter-btn" data-filter="CRITICAL">Critical</button>');
-  buffer.writeln('<button class="filter-btn" data-filter="ERROR">Errors</button>');
-  buffer.writeln('<button class="filter-btn" data-filter="WARNING">Warnings</button>');
   buffer.writeln('<button class="filter-btn" data-filter="MAJOR">Major</button>');
   buffer.writeln('<button class="filter-btn" data-filter="MINOR">Minor</button>');
   buffer.writeln('<button class="filter-btn" data-filter="INFO">Info</button>');
