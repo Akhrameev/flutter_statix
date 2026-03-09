@@ -36,7 +36,7 @@ Add `flutter_statix` to your `pubspec.yaml`:
 
 ```yaml
 dev_dependencies:
-  flutter_statix: ^1.0.8
+  flutter_statix: ^1.1.1
 ```
 
 Then run:
@@ -81,7 +81,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📈 Changelog
 
-### v1.0.8 (Latest)
+### v1.1.1 (Latest)
+- ♻️ Refactored codebase for improved maintainability
+- 🎯 Increased accuracy of static analysis
+
+### v1.0.8
 - ✨ Added Dart 3.0 compatibility
 - 🐛 Fixed coverage calculation for generated files
 - ⚡ Improved analysis performance by 40%
