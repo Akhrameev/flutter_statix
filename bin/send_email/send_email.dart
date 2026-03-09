@@ -134,7 +134,7 @@ if __name__ == "__main__":
       process.stderr.transform(utf8.decoder).listen((data) => stderr.write(data));
 
       // TODO: !@##@!
-      final exitCode = await process.exitCode;
+      await process.exitCode;
       // if (exitCode == 0) {
       //   print('\n✅  | Notified to all the Registered Recipients');
       // } else {

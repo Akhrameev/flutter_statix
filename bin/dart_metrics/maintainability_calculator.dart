@@ -175,7 +175,7 @@ class MaintainabilityCalculator {
     // Simple tokenization (this is very basic - use a proper lexer in production)
     final tokens = code
         .replaceAll(RegExp(r'//.*|/\*[\s\S]*?\*/'), '') // Remove comments
-        .replaceAll(RegExp(r'"[^"]*"|' + r"'[^']*'"), 'STRING') // Replace strings
+        .replaceAll(RegExp(r'"[^"]*"|' r"'[^']*'"), 'STRING') // Replace strings
         .split(RegExp(r'\s+|(?=[^\w])|(?<=[^\w])'))
         .where((token) => token.isNotEmpty)
         .toList();

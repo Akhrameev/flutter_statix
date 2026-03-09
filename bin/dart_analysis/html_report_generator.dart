@@ -460,7 +460,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const totalRows = rows.length;
     
     // Update the search box placeholder
-    searchBox.placeholder = \`🔍 Search issues... (\${visibleRows.length}/\${totalRows} shown)\`;
+    searchBox.placeholder = `🔍 Search issues... (\${visibleRows.length}/\${totalRows} shown)`;
   }
   
   // Initialize

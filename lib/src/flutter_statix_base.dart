@@ -1,8 +1,5 @@
 // sample_code.dart - Test file for various maintainability index scores
 
-import 'dart:io';
-import 'dart:math';
-
 /// Excellent Maintainability (CMI: ~90-100)
 /// Simple, single-purpose function
 int add(int a, int b) {
@@ -225,11 +222,11 @@ class LegacyProcessor {
     int errorCount = 0;
 
     try {
-      if (inputData != null && inputData.isNotEmpty) {
+      if (inputData.isNotEmpty) {
         for (int i = 0; i < inputData.length; i++) {
           Map<String, dynamic> item = inputData[i];
 
-          if (item != null && item.isNotEmpty) {
+          if (item.isNotEmpty) {
             try {
               if (item.containsKey('type') && item['type'] != null) {
                 String type = item['type'].toString().toLowerCase();
@@ -246,7 +243,7 @@ class LegacyProcessor {
                           if (userData.containsKey('profile')) {
                             Map<String, dynamic> profile = userData['profile'];
 
-                            if (profile != null && profile.isNotEmpty) {
+                            if (profile.isNotEmpty) {
                               if (profile.containsKey('name') && profile['name'] != null) {
                                 String name = profile['name'].toString().trim();
 
@@ -260,60 +257,55 @@ class LegacyProcessor {
                                       if (profile.containsKey('settings')) {
                                         Map<String, dynamic> settings = profile['settings'];
 
-                                        if (settings != null) {
-                                          bool isActive = settings['active'] == true;
-                                          bool hasPermissions = settings['permissions'] != null;
-                                          String role = settings['role']?.toString() ?? 'user';
+                                        bool isActive = settings['active'] == true;
+                                        bool hasPermissions = settings['permissions'] != null;
+                                        String role = settings['role']?.toString() ?? 'user';
 
-                                          if (isActive && hasPermissions) {
-                                            if (role == 'admin' || role == 'moderator' || role == 'user') {
-                                              Map<String, dynamic> processedUser = {
-                                                'id': userId,
-                                                'name': name,
-                                                'email': email,
-                                                'role': role,
-                                                'active': isActive,
-                                                'processed_at': DateTime.now().toIso8601String(),
-                                              };
+                                        if (isActive && hasPermissions) {
+                                          if (role == 'admin' || role == 'moderator' || role == 'user') {
+                                            Map<String, dynamic> processedUser = {
+                                              'id': userId,
+                                              'name': name,
+                                              'email': email,
+                                              'role': role,
+                                              'active': isActive,
+                                              'processed_at': DateTime.now().toIso8601String(),
+                                            };
 
-                                              if (config.containsKey('include_metadata') &&
-                                                  config['include_metadata'] == 'true') {
+                                            if (config.containsKey('include_metadata') &&
+                                                config['include_metadata'] == 'true') {
 
-                                                if (profile.containsKey('metadata')) {
-                                                  processedUser['metadata'] = profile['metadata'];
-                                                }
-
-                                                if (settings.containsKey('preferences')) {
-                                                  processedUser['preferences'] = settings['preferences'];
-                                                }
+                                              if (profile.containsKey('metadata')) {
+                                                processedUser['metadata'] = profile['metadata'];
                                               }
 
-                                              if (!finalResult.containsKey('users')) {
-                                                finalResult['users'] = [];
+                                              if (settings.containsKey('preferences')) {
+                                                processedUser['preferences'] = settings['preferences'];
                                               }
+                                            }
 
-                                              finalResult['users'].add(processedUser);
-                                              successCount++;
+                                            if (!finalResult.containsKey('users')) {
+                                              finalResult['users'] = [];
+                                            }
 
-                                              if (enableLogging) {
-                                                print('Successfully processed user: $name');
-                                              }
-                                            } else {
-                                              errors.add('Invalid role for user $userId: $role');
-                                              errorCount++;
+                                            finalResult['users'].add(processedUser);
+                                            successCount++;
+
+                                            if (enableLogging) {
+                                              print('Successfully processed user: $name');
                                             }
                                           } else {
-                                            if (!isActive) {
-                                              warnings.add('User $userId is inactive');
-                                            }
-                                            if (!hasPermissions) {
-                                              errors.add('User $userId has no permissions');
-                                              errorCount++;
-                                            }
+                                            errors.add('Invalid role for user $userId: $role');
+                                            errorCount++;
                                           }
                                         } else {
-                                          errors.add('User $userId has null settings');
-                                          errorCount++;
+                                          if (!isActive) {
+                                            warnings.add('User $userId is inactive');
+                                          }
+                                          if (!hasPermissions) {
+                                            errors.add('User $userId has no permissions');
+                                            errorCount++;
+                                          }
                                         }
                                       } else {
                                         errors.add('User $userId missing settings');
@@ -385,7 +377,7 @@ class LegacyProcessor {
       }
 
       finalResult['summary'] = {
-        'total_processed': inputData?.length ?? 0,
+        'total_processed': inputData.length,
         'success_count': successCount,
         'error_count': errorCount,
         'warnings_count': warnings.length,
