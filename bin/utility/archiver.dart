@@ -24,7 +24,7 @@ Future<void> createTarball(String folderPath, String tarPath) async {
   if (result.exitCode == 0) {
     final fileSize = await File(tarPath).length();
     final sizeKB = (fileSize / 1024).toStringAsFixed(2);
-    print('✅  | Success! Created $tarPath (${sizeKB} KB)');
+    print('✅  | Success! Created $tarPath ($sizeKB KB)');
   } else {
     print('❌  | tar command failed:\n${result.stderr}');
   }
