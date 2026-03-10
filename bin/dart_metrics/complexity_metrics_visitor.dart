@@ -8,33 +8,25 @@ class ComplexityMetricsVisitor extends RecursiveAstVisitor<void> {
   final List<FunctionComplexity> metrics = [];
   final String _content;
   final String _filePath;
-  final List<String> _contentLines;
 
-  ComplexityMetricsVisitor(this._content, this._filePath)
-      : _contentLines = _content.split('\n');
+  ComplexityMetricsVisitor(this._content, this._filePath);
 
   @override
   void visitFunctionDeclaration(FunctionDeclaration node) {
-    if (node.functionExpression.body != null) {
-      _analyzeFunction(node.name.lexeme, node.functionExpression.body!, node);
-    }
+    _analyzeFunction(node.name.lexeme, node.functionExpression.body, node);
     super.visitFunctionDeclaration(node);
   }
 
   @override
   void visitMethodDeclaration(MethodDeclaration node) {
-    if (node.body != null) {
-      _analyzeFunction(node.name.lexeme, node.body!, node);
-    }
+    _analyzeFunction(node.name.lexeme, node.body, node);
     super.visitMethodDeclaration(node);
   }
 
   @override
   void visitConstructorDeclaration(ConstructorDeclaration node) {
     final name = node.name?.lexeme ?? '(constructor)';
-    if (node.body != null) {
-      _analyzeFunction(name, node.body!, node);
-    }
+    _analyzeFunction(name, node.body, node);
     super.visitConstructorDeclaration(node);
   }
 
@@ -128,12 +120,6 @@ class FunctionBodyAnalyzer extends RecursiveAstVisitor<void> {
 
   @override
   void visitForStatement(ForStatement node) {
-    _increaseComplexity();
-    _withNesting(() => super.visitForStatement(node));
-  }
-
-  @override
-  void visitForEachStatement(ForStatement node) {
     _increaseComplexity();
     _withNesting(() => super.visitForStatement(node));
   }

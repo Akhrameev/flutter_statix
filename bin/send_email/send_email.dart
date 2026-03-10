@@ -133,13 +133,7 @@ if __name__ == "__main__":
       process.stdout.transform(utf8.decoder).listen((data) => stdout.write(data));
       process.stderr.transform(utf8.decoder).listen((data) => stderr.write(data));
 
-      // TODO: !@##@!
-      final exitCode = await process.exitCode;
-      // if (exitCode == 0) {
-      //   print('\n✅  | Notified to all the Registered Recipients');
-      // } else {
-      //   print('\n❌  | Failed to Notify All the Registered Recipients with Error Code: $exitCode');
-      // }
+      await process.exitCode;
     } catch (e) {
       print('❌  | Something went Wrong: $e');
       rethrow;

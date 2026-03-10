@@ -18,14 +18,12 @@ class HtmlReportGenerator {
     _writeHtmlHeader(buffer);
 
     int globalIndex = 0;
-    int totalFunctions = 0;
 
     for (final file in files) {
       final metrics = fileMetrics[file] ?? [];
       if (metrics.isNotEmpty) {
         _writeFileSection(buffer, file, metrics, globalIndex);
         globalIndex += metrics.length;
-        totalFunctions += metrics.length;
       }
     }
 
@@ -277,7 +275,7 @@ class HtmlReportGenerator {
 
       buffer.writeln('<tr class="$cmiClass">');
       buffer.writeln('<td>');
-      buffer.writeln('${metric.name}');
+      buffer.writeln(metric.name);
       buffer.writeln(
           '<span class="code-toggle" onclick="toggleCode($globalIndex)">');
       buffer.writeln('View Code</span>');
@@ -387,7 +385,7 @@ class HtmlReportGenerator {
                 row.style.display = isVisible ? 'none' : 'table-row';
                 
                 // Update button text
-                const toggleBtn = document.querySelector(\`[onclick="toggleCode(\${id})"]\`);
+                const toggleBtn = document.querySelector(`[onclick="toggleCode(\${id})"]`);
                 if (toggleBtn) {
                     toggleBtn.textContent = isVisible ? 'View Code' : 'Hide Code';
                 }
